@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            {% if all_prods.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if all_prods.has_previous %}
+                            <li class="page-item"><a href="?page={{ all_prods.previous_page_number }}" class="page-link" >Previous</a></li>
+                        {% else %}
+                            <li class="disabled page-item"><span></span></li>
+                        {% endif %}
+                        {% for i in all_prods.paginator.page_range %}
+                            {% if all_prods.number == i %}
+                            <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only"></span></span></li>
+                            {% else %}
+                            <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if all_prods.has_next %}
+                            <li class="page-item"><a href="?page={{ all_prods.next_page_number }}" class="page-link">Next</a></li>
+                        {% else %}
+                            <li class="disabled"><span></span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>

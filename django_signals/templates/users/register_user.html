@@ -1,0 +1,47 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <script type="text/javascript" >  
+        function validate() {  
+            var msg;  
+            if(document.myForm.password.value.length>5){  
+                msg="good";  
+            }  
+            else{  
+                msg="poor";  
+            }  
+            document.getElementById('mylocation').innerText=msg;  
+        }
+    </script> 
+
+    <div class="container">
+        <div class="row">
+            <div class='col'>
+                <div class="text-center">
+                    <h3>User Register Form</h3>
+                </div><hr>
+                <div class="m-4">
+                    <form class="form-control" method="POST" enctype="multipart/form-data" name="myForm">
+                        {% csrf_token %}
+                        {% if form.non_field.errors %}
+                            {% for error in form.non_field.errors  %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endif %}
+                        {% for fm in form %}
+                            {{ fm.label_tag }} 
+                            {% comment %} {{ fm }}  {% endcomment %}
+                            <div class="row m-1 ">
+                                {{ fm }}
+                            </div>
+                            
+                            {{ fm.errors|striptags }} 
+                        {% endfor %}
+                        {% comment %} {{ form.as_p }} {% endcomment %}
+                        <button class="btn btn-outline-primary" name="userPass" onkeyup="validate()">Register</button>
+                        Strength:<span id="mylocation">no strength</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

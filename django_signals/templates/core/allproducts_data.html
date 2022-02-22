@@ -1,0 +1,119 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col'>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col" style="display: flex; column-gap: 25px;">
+                        {% for product in prod %}
+                            <div class="card mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{product.pname}}</h5>
+                                            <p class="card-text">{{product.ptitle}}</p>
+                                            <span class="">{{product.quantity}}</span>
+                                            <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>
+                                        </div>
+                                    </div>
+                                </div><!------Here card-row end. ------>
+                            </div> <!------Here card end. ------>
+                        {% endfor %}
+                        </div><!------Here col end. ------>
+                    </div> <!------Here row end. ------>  
+                </div>
+            
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            {% if prod.has_other_pages %}
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {% if prod.has_previous %}
+                                            <li class="page-item"><a href="?page={{ prod.previous_page_number }}" class="page-link" >Previous</a></li>
+                                        {% else %}
+                                            <li class="disabled page-item"><span></span></li>
+                                        {% endif %}
+                                        {% for i in prod.paginator.page_range %}
+                                            {% if prod.number == i %}
+                                            <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only"></span></span></li>
+                                            {% else %}
+                                            <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if prod.has_next %}
+                                            <li class="page-item"><a href="?page={{ prod.next_page_number }}" class="page-link">Next</a></li>
+                                        {% else %}
+                                            <li class="disabled"><span></span></li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="container">
+                    <div class="row">
+                        <div class='col' style="display: flex; column-gap: 25px;">
+                            {% for product in elc_prods %}
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                                        </div><!---- col-md-4 end here ---->
+                                        <div class="col-md-8 text-center">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{product.pname}}</h5>
+                                                <p class="card-text">{{product.ptitle}}</p>
+                                                <span class="">{{product.quantity}}</span>
+                                                <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>
+                                            </div><!---- card-body end here ---->
+                                        </div><!---- col-md-8 end here ---->
+                                    </div><!---- row g-0 end here ---->
+                                </div><!---- card mb-3 end here ---->
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            {% if elc_prods.has_other_pages %}
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {% if elc_prods.has_previous %}
+                                            <li class="page-item"><a href="?page={{ elc_prods.previous_page_number }}" class="page-link" >Previous</a></li>
+                                        {% else %}
+                                            <li class="disabled page-item"><span></span></li>
+                                        {% endif %}
+                                        {% for i in elc_prods.paginator.page_range %}
+                                            {% if elc_prods.number == i %}
+                                            <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only"></span></span></li>
+                                            {% else %}
+                                            <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if elc_prods.has_next %}
+                                            <li class="page-item"><a href="?page={{ elc_prods.next_page_number }}" class="page-link">Next</a></li>
+                                        {% else %}
+                                            <li class="disabled"><span></span></li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+   
+{% endblock content %}

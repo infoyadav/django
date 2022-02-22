@@ -1,0 +1,122 @@
+{% extends 'common/base.html' %}
+{% block title %} Product Page {% endblock %}
+
+{% block content %}    
+    <br>
+<!------Here we start first ew div row. ------>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Total Category</h5>
+                        <p class="card-text">{{categories.count}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Total Product</h5>
+                        <p class="card-text text-info">{{products.count}}</p>
+                    </div>		
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Total User</h5>
+                        <p class="card-text">5</p>		
+                    </div>		
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Product In-Stock</h5>
+                        <p class="card-text text-primary">
+                            <span>Clothes :: </span>{{pd.count}}
+                            <span>Electronic :: </span>{{elc_prods.count}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div><!------Here row end. ------>
+    </div>
+ <!------Here we search the product ------>
+    <div class="container p-3">
+        <div class="row">
+            <div class="col-md">
+                <div>
+                    <form class="d-flex" method="POST">
+                        {% csrf_token %}
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='product_search'>
+                        <button class="btn btn-outline-info" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!------Here we start second div row. ------>
+
+    <div class="container">
+        <div class="row">
+            <h3>Product Show</h3>
+            <div class="col" style="display: flex; column-gap: 25px;">
+                {% for product in all_prods %}
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{product.pname}}</h5>
+                                    <p class="card-text">{{product.ptitle}}</p>
+                                    <span class="">{{product.quantity}}</span>
+                                    <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>  
+                                    <div class="inline">    
+                                        <a href="{% url 'product_pdf_view' product.p_id %}" target="_blank"><button class="btn btn-primary">Download</button></a>                                   
+                                        <a href=" {% url 'editproduct' product.p_id %}" class="link-info btn btn-outline-primary"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Product">Edit</a>
+                                        <a href="{% url 'deleteproduct' product.p_id %}" class="link-danger btn btn-outline-danger"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Product" onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!------Here card-row end. ------>
+                    </div> <!------Here card end. ------>
+                {% endfor %}
+            </div><!------Here col end. ------>
+        </div> <!------Here row end. ------>  
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                {% if all_prods.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if all_prods.has_previous %}
+                                <li class="page-item"><a href="?page={{ all_prods.previous_page_number }}" class="page-link" >Previous</a></li>
+                            {% else %}
+                                <li class="disabled page-item"><span></span></li>
+                            {% endif %}
+                            {% for i in all_prods.paginator.page_range %}
+                                {% if all_prods.number == i %}
+                                <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only"></span></span></li>
+                                {% else %}
+                                <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if all_prods.has_next %}
+                                <li class="page-item"><a href="?page={{ all_prods.next_page_number }}" class="page-link">Next</a></li>
+                            {% else %}
+                                <li class="disabled"><span></span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

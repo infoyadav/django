@@ -1,0 +1,85 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>
+            Invent- Product
+        </title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl">
+                    {% include 'common/navbar.html' %}
+                </div>
+            </div>    
+        </div>  
+        
+        <div class="container">
+            <div class="row">
+                <div class="col" style="display: flex; column-gap: 25px;">
+                    {% for product in prod %}
+                        {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {%  endif %}
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8 text-center">
+                                    <div class="card-body">
+                                        <h4>Project {{ forloop.counter }}</h4>
+                                        <h5 class="card-title">{{product.pname}}</h5>
+                                        <p class="card-text">{{product.ptitle}}</p>
+                                        <span class="">{{product.quantity}}</span>
+                                        <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>
+                                    </div>
+                                </div>
+                            </div><!------Here card-row end. ------>
+                        </div> <!------Here card end. ------>
+                        {% if forloop.counter|divisibleby:3 or forloop.last %}</div><!-- row closing --><hr>{% endif %}
+                    {% endfor %}
+                </div><!------Here col end. ------>
+            </div> <!------Here row end. ------>  
+        </div>
+       
+  
+
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    {% if prod.has_other_pages %}
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {% if prod.has_previous %}
+                                    <li class="page-item"><a href="?page={{ prod.previous_page_number }}" class="page-link" >Previous</a></li>
+                                {% else %}
+                                    <li class="disabled page-item"><span></span></li>
+                                {% endif %}
+                                {% for i in prod.paginator.page_range %}
+                                    {% if prod.number == i %}
+                                    <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only"></span></span></li>
+                                    {% else %}
+                                    <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if prod.has_next %}
+                                    <li class="page-item"><a href="?page={{ prod.next_page_number }}" class="page-link">Next</a></li>
+                                {% else %}
+                                    <li class="disabled"><span></span></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+{% block title %} Edit Category {% endblock %}
+{%load crispy_forms_tags %} 
+
+{% block content %}
+    <div class="container p-5">
+        <div class="row">
+            <h4 class="text-center">Edit Category Here</h4><br>
+            <form method="post">
+                {% csrf_token %}        
+                <div class="row mb-3">
+                    <label for="id_cat_name" class="col-sm-2 col-form-label" readonly >Category Id </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputEmail3" value={{category.cat_id}}>
+                    </div>
+                </div><!----- row mb-3 ---->
+                <div class="row mb-3">
+                    <label for="" class="col-sm-2 col-form-label">Category Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="" value={{category.cname}} name="cname">
+                        {% comment %} <input type="text" class="form-control" id="" value={{Category.category_full_name}} name="cat_name"> {% endcomment %}
+                        
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Data Updated Successfully !!!')">Save</button>
+            </form>
+        </div>
+    </div>        
+    <br>
+{% endblock content %}

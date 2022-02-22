@@ -1,0 +1,33 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+    Product info
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col" style="display: flex; column-gap: 25px;">
+            {% for product in object_list %}
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8 text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.pname}}</h5>
+                                <p class="card-text">{{product.ptitle}}</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>  
+                                <div class="">    
+                                    <a href="{% url 'user_pdf_view' product.p_id %}" target="_blank"><button class="btn btn-primary">Download pdf</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!------Here card-row end. ------>
+                </div> <!------Here card end. ------>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

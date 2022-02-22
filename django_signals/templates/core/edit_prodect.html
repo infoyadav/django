@@ -1,0 +1,43 @@
+{% extends 'common/base.html' %}
+{% block title %} Add Product {% endblock %}
+{%load crispy_forms_tags %} 
+
+{% block content %}    
+    <div class="container">
+        <div class="row">
+            <h3>Product Show</h3>
+            <div class="col" style="display: flex; column-gap: 25px;">                
+                <div class="card-body">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" Required name="category" value="{{ product.category }}" class="form-control" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" Required name="pname" value="{{ product.pname }}" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Descritpion</label>
+                            <input type="text" Required name="ptitle" value="{{ product.ptitle }}" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Price</label>
+                            <input type="text" Required name="price" value="{{ product.price }}" class="form-control">
+                        </div>
+                         <div class="mb-3">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="image here" class="prod-size">
+                            {% endif %}
+                            <label for="" class="form-label"></label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-warning">Update</button>
+                    </form>
+                </div>     
+            </div><!------Here col end. ------>
+        </div> <!------Here row end. ------>  
+    </div>
+{% endblock content %}
+

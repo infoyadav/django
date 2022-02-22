@@ -1,0 +1,16 @@
+{% extends 'user_temp/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class='col'>
+                <h3>Here we create store </h3><br>
+                <form class="form-group" method='POST'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" name="" value='Create Store'> | 
+                    <span> <a href=" {% url 'logout' %}">Logout</a> </span>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

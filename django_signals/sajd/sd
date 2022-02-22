@@ -1,0 +1,120 @@
+product = Product.objects.Count()
+    # product = Product.related_set.filter(blah=42).count()
+    # return render(request, 'common/product_show.html', {'product': product})
+    # pass
+    # try:
+    #     product = Product.objects.all().count()
+    #     print(product)
+    # except ObjectDoesNotExist:
+    #     return HttpResponse("Exception: Data not found")
+    # finally:
+    #     context = {
+    #         'products': product
+    #     }
+    #     return render(request, 'core/product_show.html', context)
+
+
+    
+# def updateimage(request, id):  #this function is called when update data
+#     old_image = ImageModel.objects.get(id=id)
+#     form = ImageForm(request.POST, request.FILES, instance=old_image)
+
+#     if form.is_valid():
+
+#         # deleting old uploaded image.
+#         image_path = old_image.image_document.path
+#         if os.path.exists(image_path):
+#             os.remove(image_path)
+
+#         # the `form.save` will also update your newest image & path.
+#         form.save()
+#         return redirect("/myapp/productlist")
+#     else:
+#         context = {'singleimagedata': old_image, 'form': form}
+#         return render(request, 'demo/editproduct.html', context)
+
+
+# <div class="col-sm-3">
+#                 <div class="card">
+#                     <div class="card-body">
+#                         <h5 class="card-title text-success">Product In-Stock</h5>
+#                         {% for product in products %}
+#                             {% if quantity in product %}
+#                                 <p class="card-text">{{category_cloth.count}}</p>
+#                             {% endif %}
+#                         {% endfor %}
+#                     </div>
+#                 </div>
+#             </div>
+
+# # Here we create function for generate a report in pdf format.
+# def generate_report(request):
+#     products = Product.objects.all()
+#     pdf = FPDF('p', 'mm', 'A4')
+#     pdf.add_page()
+#     pdf.set_font('courier', 'B', 16)
+#     pdf.cell(40,10,'This is what you have sold this month so far:',0,1)
+#     pdf.cell(40,10, '',0,1)
+#     pdf.set_font('courier', '', 12)
+#     pdf.cell(200, 8, f"{'Item'.ljust(30)} {'Amount'.rjust(20)}", 0, 1)
+#     pdf.line(10, 30, 150, 30)
+#     pdf.line(10, 38, 150, 38)
+#     for line in products:
+#         # pdf.cell(200, 8, f"{line['p_id'].ljust(30)} {line['category'].rjust(20)}", 0, 1)
+#         pdf.cell(200, 8, "{line.'{{p_id}}'.ljust(30)} {line.'{{category}}'.rjust(20)}", 0, 1)
+
+#     pdf.output('product.pdf', 'F')
+#     return render(request, "core/edit_prodect.html")
+
+# from django.core.files.storage import FileSystemStorage
+# from django.http import HttpResponse
+# from django.template.loader import render_to_string
+
+# # from weasyprint import HTML
+
+# def html_to_pdf_view(request):
+#     # paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+#     products = Product.objects.all()
+#     html_string = render_to_string('core/pdf_templates.html', {'products': products})
+
+#     # html = HTML(string=html_string)
+#     # html.write_pdf(target='/project_reports/product.pdf');
+
+#     fs = FileSystemStorage('/project_reports')
+#     with fs.open('project_reports\product.pdf') as pdf:
+#         response = HttpResponse(pdf, content_type='application/pdf')
+#         response['Content-Disposition'] = 'attachment; filename="product.pdf"'
+#         return response
+
+#     return response
+
+# def product(request):
+#     try:        
+#         products = Product.objects.all()
+#         #  Book.objects.filter(name__startswith="Django").annotate(num_authors=Count('authors'))
+#         # Book.objects.filter(name__startswith="Django").aggregate(Avg('price'))
+#         # p = Product.objects.filter(pname__startswith="Clothes").annotate(num_clothe=Count('category'))
+#         pd = Product.objects.filter(pname__endswith="Shirts").annotate(num_clothe=Count('category'))
+#         # print(p[0])
+
+#         # products_cloth = Product.objects.filter(pname__in='Shirts')
+#         # products_cloth = Product.objects.get(ptitle="Men's Shirts")
+#         # products_cloth= Product.objects.filter(ptitle="Men's Shirts").count()
+#         # print(products_cloth)
+#         # prod_count = Product.objects.all().Count('quantity')
+#         # prod_count = Product.objects.annotate(num_books=Count('quantity'))
+#         # print(prod_count)
+#         categories = Category.objects.all()
+#         # category_cloth = Category.objects.filter(cname='Clothes')pname
+#         # category = Product.objects.filter(category_type=category_type).count
+#     except NameError:  
+#         return HttpResponse("Exception: Data not found")  
+#     # return HttpResponse(products)
+#     context = {
+#             'products':products ,
+#             'categories': categories,
+#             # 'category_cloth': category_cloth,
+#             # 'products_cloth': products_cloth,
+#             'pd': pd,
+#         }
+#     return render(request, 'core/product_show.html', context)

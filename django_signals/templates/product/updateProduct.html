@@ -1,0 +1,39 @@
+{% extends 'common/base.html' %}
+{% block title %} Add Product {% endblock %}
+{%load crispy_forms_tags %} 
+
+{% block content %}    
+    <div class="container">
+        <div class="row">
+            <h3>Product Show</h3>
+            <div class="col" style="display: flex; column-gap: 25px;">                
+                <div class="card-body">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" Required name="p_name" value="{{ prod.p_name }}" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Descritpion</label>
+                            <input type="text" Required name="p_des" value="{{ prod.p_des }}" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Price</label>
+                            <input type="text" Required name="p_price" value="{{ prod.p_price }}" class="form-control">
+                        </div>
+                         <div class="mb-3">
+                            {% if prod.p_img %}
+                                <img src="{{ prod.p_img.url }}" alt="image here" class="prod-size">
+                            {% endif %}
+                            <label for="" class="form-label">Image</label>
+                            <input type="file" name="p_img" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-warning">Update</button>
+                    </form>
+                </div>     
+            </div><!------Here col end. ------>
+        </div> <!------Here row end. ------>  
+    </div>
+{% endblock content %}
+

@@ -1,0 +1,126 @@
+{% extends 'common/base.html' %}
+{% block title %} Add Category {% endblock %}
+{%load crispy_forms_tags %} 
+
+{% block content %}
+<!----- Here show product count ---->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Total Category</h5>
+                        <p class="card-text">{{categories.count}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Total Product</h5>
+                        <p class="card-text text-info">
+                                {{products.count}}
+                        </p>
+                    </div>		
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Total User</h5>
+                        <p class="card-text">5</p>		
+                    </div>		
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Product In-Stock</h5>
+                        <p class="card-text text-primary">
+                            <span>Clothes :: </span>{{pd.count}}
+                            <span>Electronic :: </span>{{elc_prods.count}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div><!------Here row end. ------>
+    </div>
+
+<!------ This div for searching a product ---->
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md">            
+                <form class="d-flex" method="POST">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='product_search' required>
+                    <button class="btn btn-outline-info" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+<!------ This div for show all a product ---->
+    <div class="container">
+        <div class="row">
+            <h3>Product Show</h3>
+            <div class="col" style="display: flex; column-gap: 25px;">
+                {% if all_prods %}
+                    {% for product in all_prods %}
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8 text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{product.pname}}</h5>
+                                        <p class="card-text">{{product.ptitle}}</p>
+                                        <span class="">{{product.quantity}}</span>
+                                        <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>  
+                                        <div class="inline">    
+                                            <a href="{% url 'product_pdf_view' product.p_id %}" target="_blank"><button class="btn btn-primary">Download</button></a>                                   
+                                            <a href=" {% url 'editproduct' product.p_id %}" class="link-info btn btn-outline-primary"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Product">Edit</a>
+                                            <a href="{% url 'deleteproduct' product.p_id %}" class="link-danger btn btn-outline-danger"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Product" onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!------Here card-row end. ------>
+                        </div> <!------Here card end. ------>
+                    {% endfor %}
+                {% else %}
+                    {% for product in product_search %}
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8 text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{product.pname}}</h5>
+                                        <p class="card-text">{{product.ptitle}}</p>
+                                        <span class="">{{product.quantity}}</span>
+                                        <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>  
+                                        <div class="inline">    
+                                            <a href="{% url 'product_pdf_view' product.p_id %}" target="_blank"><button class="btn btn-primary">Download</button></a>                                   
+                                            <a href=" {% url 'editproduct' product.p_id %}" class="link-info btn btn-outline-primary"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Product">Edit</a>
+                                            <a href="{% url 'deleteproduct' product.p_id %}" class="link-danger btn btn-outline-danger"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Product" onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!------Here card-row end. ------>
+                        </div> <!------Here card end. ------>
+                    {% endfor %}
+                {% endif %}
+            </div><!------Here col end. ------>
+        </div> <!------Here row end. ------>  
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                {% include "product/paginations.html" with page=all_prods %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

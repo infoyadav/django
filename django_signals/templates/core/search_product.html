@@ -1,0 +1,20 @@
+<div class="container p-5">
+    <div class="row">
+        <div class="col-4 col-md-4" style="display: flex; column-gap: 15px;">
+            {% if search_res %}
+                {% for res in search_res %}
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{media_url}}{{ res.p_img.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{res.p_name}} | {{ res.p_price }}</h5>
+                            <p class="card-text">{{ res.p_des }}</p>
+                            {% comment %} <a href="{% url 'editProduct' product.id %}"class="btn btn-outline-primary">Edit</a> | {% endcomment %}
+                            <a href="/editProduct/{{product.id}}" class="btn btn-outline-primary">Edit</a> |  
+                            <a href="/deleteproduct/{{product.id}}" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

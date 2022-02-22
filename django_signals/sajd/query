@@ -1,0 +1,15 @@
+# all these line of code, we ran in django shell cmd.
+
+from django.db.models import Count
+from dashb.models import Category, Product
+
+# this is working.
+p_insert = Product.objects.create(category=c[0], pname='Black-White Shirts', ptitle='Mens Shirts', quantity=2,image='', price=555)
+p_insert.save()
+
+# this is working.
+pd1 =Product.objects.filter(pname__endswith="Shirts").annotate(num_clothe=Count('category'))
+pd1.count()
+
+pd2 =Product.objects.filter(pname__endswith="Shirts").annotate(num_clothe=Count('quantity'))
+pd2.count()

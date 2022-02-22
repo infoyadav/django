@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class='col' style="display: flex; column-gap: 25px;">
+            {% for product in elc_prods %}
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{medial.url}}{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                        </div><!---- col-md-4 end here ---->
+                        <div class="col-md-8 text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.pname}}</h5>
+                                <p class="card-text">{{product.ptitle}}</p>
+                                <span class="">{{product.quantity}}</span>
+                                <p class="card-text"><small class="text-muted"> ₹ {{product.price}} | Last updated 3 mins ago</small></p>
+                            </div><!---- card-body end here ---->
+                        </div><!---- col-md-8 end here ---->
+                    </div><!---- row g-0 end here ---->
+                </div><!---- card mb-3 end here ---->
+            {% endfor %}
+        </div>
+    </div>
+</div>

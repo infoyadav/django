@@ -1,0 +1,2 @@
+2022-02-21 19:08:09,532 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2022-02-21 19:08:25,302 django.utils.autoreload INFO     D:\narendray\env1\django_signals\invent\settings.py changed, reloading.

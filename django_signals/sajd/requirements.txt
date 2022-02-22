@@ -1,0 +1,4 @@
+pip install WeasyPrint
+from fpdf import FPDF
+pip install reportlab
+pip install xhtml2pdf

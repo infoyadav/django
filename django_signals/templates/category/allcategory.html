@@ -1,0 +1,51 @@
+{% extends 'common/base.html' %}
+{% block title %} Search Category {% endblock %}
+{%load crispy_forms_tags %} 
+
+{% block content %}
+<!------ This div for searchin a category ---->
+    <div class="container p-3">
+        <div class="row">
+            <div class="col-md-8">                
+                <form class="d-flex" method="POST">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='cate_search'>
+                    <button class="btn btn-outline-info" type="submit">Search</button>
+                </form>
+            </div>            
+            <div class="col-md-4 text-center">
+               <a href=" {% url 'add_category' %}" class='text-decoration-none fs-5' title="Add Product">+</a>
+            </div>
+        </div>
+    </div>
+<!------ This div for show all a category ---->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl">                
+                <table class="table">
+                    <thead>
+                        <tr class="text-">
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Category Name</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    {% for category in categories %}
+                    <tbody>
+                        <tr>
+                            <td scope="row" class="text-center">{{category.cat_id}}</td>
+                            <td class="text-center">{{category.cname}}</td>
+                            
+                            <td class="text-center">
+                                <a class="link-info btn btn-outline-primary" href=" {% url 'editcategory' category.cat_id %} " data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Category">Edit</a>
+                                 &nbsp; | &nbsp;
+                                <a class="link-danger btn btn-outline-danger" href=" {% url 'deletecatgeory' category.cat_id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Category" onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,2 @@
+sortable_private_fields = [f for f in opts.private_fields if isinstance(f, ModelField)]
+AttributeError: 'ModelFormOptions' object has no attribute 'private_fields'

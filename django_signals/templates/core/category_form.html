@@ -1,0 +1,46 @@
+{% extends 'common/base.html' %}
+{% block title %} Add Category {% endblock %}
+{%load crispy_forms_tags %} 
+
+{% block content %}   
+
+    {% comment %} <div class="container p-5">
+        <div class="row">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}<br>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div> {% endcomment %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl">                
+                <table class="table">
+                    <thead>
+                        <tr class="text-">
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Category Name</th>                            
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    {% for category in all_categories %}
+                    <tbody>
+                        <tr>
+                            <td scope="row" class="text-center">{{category.cat_id}}</td>
+                            <td class="text-center">{{category.cname}}</td>
+                            
+                            <td class="text-center">
+                                <a class="link-info btn btn-outline-primary" href=" {% url 'editcategory' category.cat_id %} " data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Category">Edit</a>
+                                 &nbsp; | &nbsp;
+                                <a class="link-danger btn btn-outline-danger" href=" {% url 'deletecatgeory' category.cat_id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Category" onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
